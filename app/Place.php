@@ -138,7 +138,7 @@ class Place
                     'p_dm_soundex'  => Soundex::daitchMokotoff($place),
                 ]);
 
-                $place_id = (int) DB::connection()->getPdo()->lastInsertId();
+                $place_id = (int) DB::getDBALConnection()->getPdo()->lastInsertId();
             }
 
             return $place_id;

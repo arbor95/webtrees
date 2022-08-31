@@ -183,7 +183,7 @@ class TreeService
             'gedcom_name' => $name,
         ]);
 
-        $tree_id = (int) DB::connection()->getPdo()->lastInsertId();
+        $tree_id = (int) DB::getDBALConnection()->getPdo()->lastInsertId();
 
         $tree = new Tree($tree_id, $name, $title);
 
@@ -191,7 +191,7 @@ class TreeService
         $tree->setPreference('title', $title);
 
         // Set preferences from default tree
-        (new Builder(DB::connection()))->from('gedcom_setting')->insertUsing(
+        (new Builder(DB::getDBALConnection()))->from('gedcom_setting')->insertUsing(
             ['gedcom_id', 'setting_name', 'setting_value'],
             static function (Builder $query) use ($tree_id): void {
                 $query
@@ -201,7 +201,7 @@ class TreeService
             }
         );
 
-        (new Builder(DB::connection()))->from('default_resn')->insertUsing(
+        (new Builder(DB::getDBALConnection()))->from('default_resn')->insertUsing(
             ['gedcom_id', 'tag_type', 'resn'],
             static function (Builder $query) use ($tree_id): void {
                 $query

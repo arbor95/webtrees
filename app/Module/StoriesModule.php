@@ -345,7 +345,7 @@ class StoriesModule extends AbstractModule implements ModuleConfigInterface, Mod
                 'block_order' => 0,
             ]);
 
-            $block_id = (int) DB::connection()->getPdo()->lastInsertId();
+            $block_id = (int) DB::getDBALConnection()->getPdo()->lastInsertId();
         }
 
         $this->setBlockSetting($block_id, 'story_body', $story_body);

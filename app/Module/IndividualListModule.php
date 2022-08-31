@@ -823,7 +823,7 @@ class IndividualListModule extends AbstractModule implements ModuleListInterface
      */
     private function binaryColumn(string $column, string $alias = null): Expression
     {
-        if (DB::connection()->getDriverName() === 'mysql') {
+        if (DB::getDBALConnection()->getDriverName() === 'mysql') {
             $sql = 'CAST(' . $column . ' AS binary)';
         } else {
             $sql = $column;

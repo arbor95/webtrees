@@ -126,7 +126,7 @@ class SearchService
                     ->where('wife_name.n_type', '<>', '_MARNM');
             });
 
-        $prefix = DB::connection()->getTablePrefix();
+        $prefix = DB::getDBALConnection()->getTablePrefix();
         $field  = new Expression('COALESCE(' . $prefix . "husb_name.n_full, '') || COALESCE(" . $prefix . "wife_name.n_full, '')");
 
         $this->whereTrees($query, 'f_file', $trees);
@@ -1324,7 +1324,7 @@ class SearchService
      */
     private function iLike(): string
     {
-        if (DB::connection()->getDriverName() === 'pgsql') {
+        if (DB::getDBALConnection()->getDriverName() === 'pgsql') {
             return 'ILIKE';
         }
 

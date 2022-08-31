@@ -35,8 +35,8 @@ class SeedGedcomTable implements SeedInterface
     {
         // Add a "default" tree, to store default settings
 
-        if (DB::connection()->getDriverName() === 'sqlsrv') {
-            DB::connection()->unprepared('SET IDENTITY_INSERT [' . DB::connection()->getTablePrefix() . 'gedcom] ON');
+        if (DB::getDBALConnection()->getDriverName() === 'sqlsrv') {
+            DB::getDBALConnection()->unprepared('SET IDENTITY_INSERT [' . DB::getDBALConnection()->getTablePrefix() . 'gedcom] ON');
         }
 
         DB::table('gedcom')->updateOrInsert([
@@ -45,8 +45,8 @@ class SeedGedcomTable implements SeedInterface
             'gedcom_name'  => 'DEFAULT_TREE',
         ]);
 
-        if (DB::connection()->getDriverName() === 'sqlsrv') {
-            DB::connection()->unprepared('SET IDENTITY_INSERT [' . DB::connection()->getTablePrefix() . 'gedcom] OFF');
+        if (DB::getDBALConnection()->getDriverName() === 'sqlsrv') {
+            DB::getDBALConnection()->unprepared('SET IDENTITY_INSERT [' . DB::getDBALConnection()->getTablePrefix() . 'gedcom] OFF');
         }
     }
 }
